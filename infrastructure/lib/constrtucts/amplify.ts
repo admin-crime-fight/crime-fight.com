@@ -30,7 +30,7 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
     // TODO: add more branches like dev, staging, prod etc
     amplifyApp.addBranch('qa', {
         branchName: 'qa',
-        stage: 'QA',
+        stage: 'DEVELOPMENT',
     })
 
     return amplifyApp
