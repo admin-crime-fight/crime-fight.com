@@ -5,7 +5,7 @@ import { BuildSpec } from 'aws-cdk-lib/aws-codebuild'
 
 export function createAmplifyConstruct(scope: cdk.Stack) {
     const amplifyApp = new App(scope, 'CrimeFightAmplifyConstruct', {
-        appName: 'crime-fight.com ui',
+        appName: process.env.PROD_URL!,
         platform: Platform.WEB_COMPUTE,
         sourceCodeProvider: new GitHubSourceCodeProvider({
             owner: process.env.theGithubOwnerOfThisProject!,
