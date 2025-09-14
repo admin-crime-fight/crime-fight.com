@@ -6,7 +6,7 @@ import { BuildSpec } from 'aws-cdk-lib/aws-codebuild'
 export function createAmplifyConstruct(scope: cdk.Stack) {
     const amplifyApp = new App(scope, 'CrimeFightAmplifyConstruct', {
         appName: process.env.PROD_URL!,
-        // platform: Platform.WEB_COMPUTE,
+        platform: Platform.WEB_COMPUTE,
         sourceCodeProvider: new GitHubSourceCodeProvider({
             owner: process.env.theGithubOwnerOfThisProject!,
             repository: process.env.theGithubRepositoryOfThisProject!,
@@ -29,10 +29,10 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
             frontend: {
                 phases: {
                     preBuild: {
-                        commands: ['cd frontend', 'ls', 'ls', 'ls', 'ls', 'ls', 'ls', 'npm ci'],
+                        commands: ['cd frontend', 'npm ci'],
                     },
                     build: {
-                        commands: ['npm run build'],
+                        commands: ['npm run build','ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'cd .next', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'mv build-manifest.json deploy-manifest.json'],
                     },
                 },
                 artifacts: {
