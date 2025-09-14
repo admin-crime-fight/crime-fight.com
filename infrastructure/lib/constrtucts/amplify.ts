@@ -18,14 +18,9 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
             status: RedirectStatus.NOT_FOUND_REWRITE
         }],
         // environmentVariables: {
-        //     REACT_APP_API_URL: process.env.REACT_APP_API_URL!,
-        //     REACT_APP_WS_URL: process.env.REACT_APP_WS_URL!,
-        //     REACT_APP_REGION: process.env.REACT_APP_REGION!,
-        //     REACT_APP_USER_POOL_ID: process.env.REACT_APP_USER_POOL_ID!,
-        //     REACT_APP_USER_POOL_CLIENT_ID: process.env.REACT_APP_USER_POOL_CLIENT_ID!,
-        //     REACT_APP_IDENTITY_POOL_ID: process.env.REACT_APP_IDENTITY_POOL_ID!,
-        //     REACT_APP_S3_BUCKET_NAME: process.env.REACT_APP_S3_BUCKET_NAME!,
+        //     SOMETHING: process.env.SOMETHING!,
         // }
+
         // Optional: Configure build settings
         buildSpec: BuildSpec.fromObjectToYaml({
             // TODO: automate the version bumping
@@ -33,7 +28,7 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
             frontend: {
                 phases: {
                     preBuild: {
-                        commands: ['pwd','ls','cd frontend','pwd','ls','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','npm ci'],
+                        commands: ['cd frontend','npm ci'],
                     },
                     build: {
                         commands: ['npm run build'],
@@ -47,10 +42,22 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
         }),
     })
 
-    // TODO: add more branches like dev, staging, prod etc
     amplifyApp.addBranch('main', {
         branchName: 'main',
         stage: 'PRODUCTION',
+        autoBuild: true,
+        environmentVariables:{
+            BASE_URL: process.env.PROD_URL!,
+        }
+    })
+
+    amplifyApp.addBranch('qa', {
+        branchName: 'qa',
+        stage: 'DEVELOPMENT',
+        autoBuild: true,
+        environmentVariables:{
+            BASE_URL: process.env.QA_URL!,
+        }
     })
 
     return amplifyApp
