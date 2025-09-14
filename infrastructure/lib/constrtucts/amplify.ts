@@ -40,7 +40,7 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
                     },
                 },
                 artifacts: {
-                    baseDirectory: 'build', // Or 'dist', 'out', etc., depending on your build output
+                    baseDirectory: '.next', // Or 'dist', 'out', etc., depending on your build output
                     files: ['**/*'],
                 },
             },
