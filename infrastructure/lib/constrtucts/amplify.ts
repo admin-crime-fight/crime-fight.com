@@ -32,7 +32,7 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
                         commands: ['cd frontend', 'npm ci'],
                     },
                     build: {
-                        commands: ['npm run build','ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'cd .next', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'mv build-manifest.json deploy-manifest.json'],
+                        commands: ['npm run build','ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'cd .next', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'mv build-manifest.json deploy-manifest.json', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'cd ..'],
                     },
                 },
                 artifacts: {
