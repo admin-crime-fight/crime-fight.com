@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import * as cdk from 'aws-cdk-lib'
 import { App, GitHubSourceCodeProvider, Platform, RedirectStatus } from "@aws-cdk/aws-amplify-alpha"
+import { BuildSpec } from 'aws-cdk-lib/aws-codebuild'
 
 export function createAmplifyConstruct(scope: cdk.Stack) {
     const amplifyApp = new App(scope, 'CrimeFightAmplifyConstruct', {
@@ -25,12 +26,31 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
         //     REACT_APP_IDENTITY_POOL_ID: process.env.REACT_APP_IDENTITY_POOL_ID!,
         //     REACT_APP_S3_BUCKET_NAME: process.env.REACT_APP_S3_BUCKET_NAME!,
         // }
+        // Optional: Configure build settings
+        buildSpec: BuildSpec.fromObjectToYaml({
+            // TODO: automate the version bumping
+            version: '1.0',
+            frontend: {
+                phases: {
+                    preBuild: {
+                        commands: ['pwd','ls','cd frontend','pwd','ls','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','echo "Installing dependencies..."','npm ci'],
+                    },
+                    build: {
+                        commands: ['npm run build'],
+                    },
+                },
+                artifacts: {
+                    baseDirectory: 'build', // Or 'dist', 'out', etc., depending on your build output
+                    files: ['**/*'],
+                },
+            },
+        }),
     })
 
     // TODO: add more branches like dev, staging, prod etc
-    amplifyApp.addBranch('qa', {
-        branchName: 'qa',
-        stage: 'DEVELOPMENT',
+    amplifyApp.addBranch('main', {
+        branchName: 'main',
+        stage: 'PRODUCTION',
     })
 
     return amplifyApp
