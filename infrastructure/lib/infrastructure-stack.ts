@@ -5,7 +5,7 @@ import { createAmplifyConstruct } from './constrtucts/amplify';
 
 export class InfrastructureStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, { env: { region: process.env.region , account: process.env.CDK_DEFAULT_ACCOUNT}, ...props })
+    super(scope, id, { env: { region: process.env.region , account: process.env.CDK_DEFAULT_ACCOUNT_ID}, ...props })
 
     createAmplifyConstruct(this)
   }
