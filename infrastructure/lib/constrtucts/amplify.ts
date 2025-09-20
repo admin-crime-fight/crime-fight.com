@@ -28,7 +28,7 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
             frontend: {
                 phases: {
                     preBuild: {
-                        commands: ['ls ls ls ls ls ls ls ls ls ls ls ls','cd frontend', 'npm ci --cache .npm --prefer-offline'],
+                        commands: ['ls -la','ls -la','ls -la','ls -la','ls -la','ls -la','cd frontend', 'npm ci --cache .npm --prefer-offline'],
                         // TODO: implement auto deploy of cdk changes (inspo from: https://github.com/focusOtter/fullstack-nextjs-cdk-starter/blob/main/_backend/lib/hosting/amplify.ts)
                         // 'cd _backend', //the buildspec file gets ran from the root of our project
                         // 'npm ci', //install the cdk deps
