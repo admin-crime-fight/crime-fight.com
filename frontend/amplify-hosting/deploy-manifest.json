@@ -1,0 +1,28 @@
+{
+    "version": 1,
+    "routes": [
+        {
+            "path": "/*",
+            "target": {
+                "kind": "Compute",
+                "src": "/*",
+                "ImageOptimization": "ImageOptimization"
+            }
+        },
+        {
+            "path": "/*",
+            "target": {
+                "kind": "Compute",
+                "src": "default"
+            }
+        }
+    ],
+    "computeResources": [{
+        "name": "default",
+        "entrypoint": "server.js",
+        "runtime": "nodejs22.x"
+    }],
+    "framework": {
+        "name": "Next.js"
+    }
+}
