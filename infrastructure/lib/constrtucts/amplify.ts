@@ -74,6 +74,9 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
         }
     })
 
+    const cfnBranch = amplifyApp?.node?.defaultChild as cdk.aws_amplify.CfnBranch
+    cfnBranch.framework = "Next.js - SSR"
+
     // amplifyApp.addDomain('example.com', {
     //     enableAutoSubdomain: true, // in case subdomains should be auto registered for branches
     //     autoSubdomainCreationPatterns: ['*', 'pr*'], // regex for branches that should auto register subdomains
