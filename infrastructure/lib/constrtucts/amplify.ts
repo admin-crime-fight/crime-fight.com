@@ -12,47 +12,51 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
             repository: process.env.theGithubRepositoryOfThisProject!,
             oauthToken: cdk.SecretValue.secretsManager(process.env.theGithubTokenOfThisProject!),
         }),
-        // customRules: [{
-        //     source: '/<*>',
-        //     target: '/index.html',
-        //     status: RedirectStatus.NOT_FOUND_REWRITE
-        // }],
+        customRules: [{
+            source: '/<*>',
+            target: '/index.html',
+            status: RedirectStatus.NOT_FOUND_REWRITE
+        }],
         autoBranchDeletion: true,
-        // environmentVariables: {
-        //     SOMETHING: process.env.SOMETHING!,
-        // }
-
+        environmentVariables: {
+            SOMETHING: process.env.SOMETHING!,
+        },
         buildSpec: BuildSpec.fromObjectToYaml({
             // TODO: automate the version bumping
             version: '1.0',
-            frontend: {
-                phases: {
-                    preBuild: {
-                        commands: ['ls -la','ls -la','ls -la','ls -la','ls -la','ls -la','cd frontend', 'npm ci --cache .npm --prefer-offline'],
-                        // TODO: implement auto deploy of cdk changes (inspo from: https://github.com/focusOtter/fullstack-nextjs-cdk-starter/blob/main/_backend/lib/hosting/amplify.ts)
-                        // 'cd _backend', //the buildspec file gets ran from the root of our project
-                        // 'npm ci', //install the cdk deps
-                        // 'npm run codegen', //see package.json
-                        // 'npm run build:resolvers', //see package.json
-                        // 'npx aws-cdk deploy --require-approval never --outputs-file ../output.json', // deploy cdk (see package.json)
-                        // 'cd ..', // go back to the root of the project
-                        // 'npm ci', // install the frontend deps,
-                    },
-                    build: {
-                        //  TODO: Add any other environment variables you need here?
-                        // - echo "NEXT_AWS_S3_ACCESS_KEY_ID=$NEXT_AWS_S3_ACCESS_KEY_ID" >> .env
-                        // - echo "NEXT_AWS_S3_SECRET_ACCESS_KEY=$NEXT_AWS_S3_SECRET_ACCESS_KEY" >> .env
-                        commands: ['npm run build'],
-                    },
-                },
-                artifacts: {
-                    baseDirectory: './frontend/.next',
-                    files: ['./frontend/**/*'],
-                },
-                cache:{
-                    paths: ['./frontend/node_modules/**/*','./frontend/.next/cache/**/*'],
+            applications: [
+                {
+                    appRoot: 'frontend',
+                    frontend: {
+                        phases: {
+                            preBuild: {
+                                commands: ['ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'npm install'],
+                                // TODO: implement auto deploy of cdk changes (inspo from: https://github.com/focusOtter/fullstack-nextjs-cdk-starter/blob/main/_backend/lib/hosting/amplify.ts)
+                                // 'cd _backend', //the buildspec file gets ran from the root of our project
+                                // 'npm ci', //install the cdk deps
+                                // 'npm run codegen', //see package.json
+                                // 'npm run build:resolvers', //see package.json
+                                // 'npx aws-cdk deploy --require-approval never --outputs-file ../output.json', // deploy cdk (see package.json)
+                                // 'cd ..', // go back to the root of the project
+                                // 'npm ci', // install the frontend deps,
+                            },
+                            build: {
+                                //  TODO: Add any other environment variables you need here?
+                                // - echo "NEXT_AWS_S3_ACCESS_KEY_ID=$NEXT_AWS_S3_ACCESS_KEY_ID" >> .env
+                                // - echo "NEXT_AWS_S3_SECRET_ACCESS_KEY=$NEXT_AWS_S3_SECRET_ACCESS_KEY" >> .env
+                                commands: ['npm run build'],
+                            },
+                        },
+                        artifacts: {
+                            baseDirectory: '.next',
+                            files: ['**/*'],
+                        },
+                        cache: {
+                            paths: ['**/*'],
+                        }
+                    }
                 }
-            },
+            ]
         }),
     })
 
@@ -60,7 +64,7 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
         branchName: 'main',
         stage: 'PRODUCTION',
         autoBuild: true,
-        environmentVariables:{
+        environmentVariables: {
             BASE_URL: process.env.PROD_URL!,
         }
     })
@@ -69,7 +73,7 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
         branchName: 'qa',
         stage: 'DEVELOPMENT',
         autoBuild: true,
-        environmentVariables:{
+        environmentVariables: {
             BASE_URL: process.env.QA_URL!,
         }
     })
