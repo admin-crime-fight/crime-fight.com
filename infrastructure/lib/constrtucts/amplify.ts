@@ -44,7 +44,7 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
                                 //  TODO: Add any other environment variables you need here?
                                 // - echo "NEXT_AWS_S3_ACCESS_KEY_ID=$NEXT_AWS_S3_ACCESS_KEY_ID" >> .env
                                 // - echo "NEXT_AWS_S3_SECRET_ACCESS_KEY=$NEXT_AWS_S3_SECRET_ACCESS_KEY" >> .env
-                                commands: ['npm run build'],
+                                commands: ['npm run build','cp .amplify-hosting/deploy-manifest.json .next/deploy-manifest.json'],
                             },
                         },
                         artifacts: {
