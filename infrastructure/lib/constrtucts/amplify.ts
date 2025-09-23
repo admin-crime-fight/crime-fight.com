@@ -30,7 +30,7 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
                     frontend: {
                         phases: {
                             preBuild: {
-                                commands: ['ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'npm install'],
+                                commands: ['ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'npm install', 'cat ../infrastructure/lib/constrtucts/amplify.ts'],
                                 // TODO: implement auto deploy of cdk changes (inspo from: https://github.com/focusOtter/fullstack-nextjs-cdk-starter/blob/main/_backend/lib/hosting/amplify.ts)
                                 // 'cd _backend', //the buildspec file gets ran from the root of our project
                                 // 'npm ci', //install the cdk deps
@@ -44,7 +44,7 @@ export function createAmplifyConstruct(scope: cdk.Stack) {
                                 //  TODO: Add any other environment variables you need here?
                                 // - echo "NEXT_AWS_S3_ACCESS_KEY_ID=$NEXT_AWS_S3_ACCESS_KEY_ID" >> .env
                                 // - echo "NEXT_AWS_S3_SECRET_ACCESS_KEY=$NEXT_AWS_S3_SECRET_ACCESS_KEY" >> .env
-                                commands: ['npm run build','cp .amplify-hosting/deploy-manifest.json .next/deploy-manifest.json'],
+                                commands: ['npm run build','cp .amplify-hosting/deploy-manifest.json .next/deploy-manifest.json','ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'ls -la', 'cat .next/deploy-manifest.json'],
                             },
                         },
                         artifacts: {
